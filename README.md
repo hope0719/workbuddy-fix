@@ -16,10 +16,27 @@ macOS 本机排错的实战知识库 —— 每一条都来自真实故障现场
 
 ## 内容
 
-| 文档 | 内容 | 适用 |
+### 先跑这个
+
+| 文件 | 说明 |
+|---|---|
+| [`macos/lag-snapshot.py`](macos/lag-snapshot.py) | 一键快照，4 秒输出结构化中文报告。只读、免 root、仅标准库 |
+
+### 主线：怎么分诊
+
+| 文档 | 解决什么 |
+|---|---|
+| [`macos/lag-diagnosis.md`](macos/lag-diagnosis.md) | **入口文档**。整机卡顿的四象限分诊（CPU / 内存swap / 磁盘IO / 内核wired），含 10 类根因与 12 条固定坑 |
+
+### 单点深挖：三个最高发的失真来源
+
+| 文档 | 现象 | 为什么单独立文 |
 |---|---|---|
-| [`macos/lag-diagnosis.md`](macos/lag-diagnosis.md) | 整机卡顿/卡死根因分诊：CPU / 内存与 swap / 磁盘 I/O / 内核 wired 四象限，含 10 类实测根因与 12 条固定坑 | macOS 整机级卡顿 |
-| [`macos/lag-snapshot.py`](macos/lag-snapshot.py) | 一键快照脚本，4 秒输出结构化中文报告 | 任何 macOS |
+| [`macos/colima-memory.md`](macos/colima-memory.md) | CPU 正常、进程都小，但机器越来越卡 | 虚拟机内存**不计入任何进程 RSS**，只查进程排行必然漏掉 |
+| [`macos/spotlight-indexing.md`](macos/spotlight-indexing.md) | 开机好好的，两三分钟后突然假死 | 有 2–3 分钟延迟，且强制关机会让它重来一遍 |
+| [`macos/process-attribution.md`](macos/process-attribution.md) | 数据拿到了，但归因到了错的对象 | RSS 会重复计数；匿名 `Electron` 进程按名字判断会误伤主力软件 |
+
+建议阅读顺序：先看 `lag-diagnosis.md` 建立框架，卡在哪一类再进对应的深挖文档。
 
 ## 快速开始
 
